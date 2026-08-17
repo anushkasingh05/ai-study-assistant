@@ -1,0 +1,369 @@
+.flashcard-deck-wrapper {
+  max-width: 680px;
+  width: 100%;
+  margin: 1.5rem auto;
+  text-align: left;
+}
+
+.deck-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.deck-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.deck-counter {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dark .deck-counter {
+  color: #9ca3af;
+}
+
+.mastered-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  background: #ecfdf5;
+  color: #065f46;
+  border-radius: 999px;
+}
+
+.dark .mastered-badge {
+  background: #064e3b;
+  color: #a7f3d0;
+}
+
+.shuffle-btn {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.shuffle-btn:hover {
+  background: #e5e7eb;
+}
+
+.dark .shuffle-btn {
+  background: #27272a;
+  border-color: #3f3f46;
+  color: #d1d5db;
+}
+
+.dark .shuffle-btn:hover {
+  background: #3f3f46;
+}
+
+/* 3D Flip Card Container */
+.flip-card-perspective {
+  perspective: 1200px;
+  width: 100%;
+  min-height: 320px;
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  border-radius: 20px;
+}
+
+.flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  padding: 2rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  border: 1.5px solid var(--border-color, #e5e7eb);
+}
+
+.flip-card-front {
+  background: var(--card-bg, #ffffff);
+}
+
+.dark .flip-card-front {
+  background: #18181b;
+  border-color: #27272a;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.flip-card-back {
+  background: #f8fafc;
+  transform: rotateY(180deg);
+  border-color: #cbd5e1;
+}
+
+.dark .flip-card-back {
+  background: #1f2228;
+  border-color: #334155;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.card-face-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-side-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+}
+
+.question-label {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.dark .question-label {
+  background: #1e3a8a;
+  color: #93c5fd;
+}
+
+.answer-label {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.dark .answer-label {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+.mastered-icon {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #d97706;
+}
+
+.card-body {
+  margin: 1.5rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-question-text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--text-color, #111827);
+  margin: 0;
+}
+
+.dark .card-question-text {
+  color: #f9fafb;
+}
+
+.card-answer-text {
+  font-size: 1.15rem;
+  line-height: 1.55;
+  color: #1f2937;
+  margin: 0;
+}
+
+.dark .card-answer-text {
+  color: #f3f4f6;
+}
+
+.hint-container {
+  margin-top: 1rem;
+}
+
+.hint-toggle-btn {
+  background: transparent;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6366f1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.dark .hint-toggle-btn {
+  color: #818cf8;
+}
+
+.hint-text {
+  font-size: 0.85rem;
+  color: #4b5563;
+  background: #fef3c7;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  margin: 0.5rem 0 0 0;
+}
+
+.dark .hint-text {
+  background: #78350f;
+  color: #fde68a;
+}
+
+.card-face-footer {
+  text-align: center;
+}
+
+.flip-prompt {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+/* Deck Navigation Bar */
+.deck-nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.nav-btn {
+  padding: 0.7rem 1.25rem;
+  background: #ffffff;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dark .nav-btn {
+  background: #202023;
+  border-color: #3f3f46;
+  color: #d1d5db;
+}
+
+.dark .nav-btn:hover:not(:disabled) {
+  background: #27272a;
+}
+
+.center-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mastery-toggle-btn {
+  padding: 0.7rem 1rem;
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mastery-toggle-btn:hover {
+  background: #f3f4f6;
+}
+
+.mastery-toggle-btn.is-mastered {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #b45309;
+}
+
+.dark .mastery-toggle-btn {
+  background: #27272a;
+  border-color: #3f3f46;
+  color: #9ca3af;
+}
+
+.dark .mastery-toggle-btn.is-mastered {
+  background: #78350f;
+  border-color: #d97706;
+  color: #fde68a;
+}
+
+.flip-btn {
+  padding: 0.7rem 1.25rem;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+}
+
+.flip-btn:hover {
+  background: #1d4ed8;
+}
+
+.keyboard-shortcuts-guide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.keyboard-shortcuts-guide kbd {
+  padding: 0.15rem 0.4rem;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-family: inherit;
+  color: #4b5563;
+}
+
+.dark .keyboard-shortcuts-guide kbd {
+  background: #27272a;
+  border-color: #3f3f46;
+  color: #9ca3af;
+}

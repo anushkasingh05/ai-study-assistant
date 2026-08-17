@@ -1,0 +1,171 @@
+.error-card {
+  max-width: 680px;
+  width: 100%;
+  margin: 1.5rem auto;
+  padding: 1.5rem;
+  background: #fff5f5;
+  border: 1.5px solid #fecaca;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.08);
+  animation: slideInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.dark .error-card {
+  background: #1f1315;
+  border-color: #7f1d1d;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.error-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.error-icon-badge {
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0.5rem;
+  background: #fee2e2;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.dark .error-icon-badge {
+  background: #450a0a;
+}
+
+.error-header-text {
+  flex: 1;
+}
+
+.error-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #991b1b;
+  margin: 0 0 0.25rem 0;
+}
+
+.dark .error-title {
+  color: #fca5a5;
+}
+
+.error-description {
+  font-size: 0.92rem;
+  color: #b91c1c;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.dark .error-description {
+  color: #f87171;
+}
+
+.error-help-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  border-left: 3px solid #ef4444;
+}
+
+.dark .error-help-box {
+  background: rgba(0, 0, 0, 0.25);
+  border-left-color: #dc2626;
+}
+
+.help-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.help-text {
+  font-size: 0.85rem;
+  color: #4b5563;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.dark .help-text {
+  color: #d1d5db;
+}
+
+.error-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.retry-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  background: #dc2626;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.25);
+}
+
+.retry-btn:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+
+.retry-btn:active {
+  transform: translateY(0);
+}
+
+.retry-icon {
+  font-size: 1rem;
+}
+
+.dismiss-btn {
+  padding: 0.6rem 1rem;
+  background: transparent;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dismiss-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #374151;
+}
+
+.dark .dismiss-btn {
+  color: #9ca3af;
+  border-color: #4b5563;
+}
+
+.dark .dismiss-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e5e7eb;
+}
