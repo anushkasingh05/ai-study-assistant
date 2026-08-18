@@ -135,9 +135,14 @@ export function App() {
 
       console.error("Study set generation error:", err);
 
+      const isNetworkError = err instanceof TypeError || (err.message && err.message.toLowerCase().includes("fetch"));
+      const displayMessage = isNetworkError
+        ? "Unable to connect to StudyAI server. Please check that the backend is running and click Try Again."
+        : err.message || (typeof err === "string" ? err : "An error occurred while generating flashcards.");
+
       setErrorState({
-        message: err.message || (typeof err === "string" ? err : "Unable to connect to the study assistant server."),
-        code: err.code || "UNKNOWN_ERROR",
+        message: displayMessage,
+        code: isNetworkError ? "AI_GATEWAY_ERROR" : err.code || "UNKNOWN_ERROR",
       });
     } finally {
       if (currentSeqId === requestSeqRef.current) {
@@ -345,7 +350,7 @@ export function App() {
           <span>•</span>
           <span>🔄 Wrong-Answer Re-test</span>
           <span>•</span>
-          <span>📜 MongoDB History</span>
+          <span>📜 Study History</span>
         </div>
       </section>
 
