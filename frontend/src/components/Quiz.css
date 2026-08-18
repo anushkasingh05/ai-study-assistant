@@ -563,3 +563,54 @@
 .dark .restart-full-btn:hover {
   background: #3f3f46;
 }
+
+/* ================= RESPONSIVE MEDIA QUERIES ================= */
+@media (max-width: 640px) {
+  .quiz-card {
+    padding: 1.25rem;
+    border-radius: 14px;
+  }
+
+  .quiz-question-text {
+    font-size: 1.05rem;
+    line-height: 1.4;
+  }
+
+  .quiz-options-list {
+    gap: 0.5rem;
+  }
+
+  .quiz-option {
+    padding: 0.75rem 0.9rem;
+    font-size: 0.88rem;
+  }
+
+  .option-badge {
+    width: 24px;
+    height: 24px;
+    font-size: 0.75rem;
+  }
+
+  .scorecard-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .scorecard-badge-circle {
+    width: 100px;
+    height: 100px;
+    font-size: 1.8rem;
+    margin: 0 auto;
+  }
+
+  .scorecard-title {
+    font-size: 1.35rem;
+  }
+
+  .quiz-explanation-box {
+    padding: 0.85rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+

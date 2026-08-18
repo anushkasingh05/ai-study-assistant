@@ -264,3 +264,44 @@ textarea:focus {
   border-color: #3730a3;
   color: #c7d2fe;
 }
+
+/* ================= RESPONSIVE MEDIA QUERIES ================= */
+@media (max-width: 640px) {
+  .topic-input-card {
+    padding: 1rem;
+    border-radius: 14px;
+  }
+
+  textarea {
+    font-size: 0.95rem;
+    padding: 0.75rem;
+    min-height: 100px;
+  }
+
+  .input-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .generate-button {
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem;
+  }
+
+  .shortcut-hint {
+    display: none; /* Hide desktop Ctrl+Enter shortcut hint on mobile */
+  }
+
+  .example-chip {
+    font-size: 0.76rem;
+    padding: 0.3rem 0.65rem;
+  }
+}

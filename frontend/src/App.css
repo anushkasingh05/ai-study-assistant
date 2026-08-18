@@ -204,12 +204,6 @@ body {
   margin: 0 0 1rem 0;
 }
 
-@media (max-width: 640px) {
-  .hero h1 {
-    font-size: 2.2rem;
-  }
-}
-
 .gradient-text {
   color: #2563eb;
 }
@@ -446,4 +440,111 @@ footer {
   color: var(--text-muted);
   border-top: 1px solid var(--border-color);
   margin-top: auto;
+}
+
+/* ================= RESPONSIVE MEDIA QUERIES ================= */
+
+/* Tablet & Smaller Laptops (<= 768px) */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 1.25rem;
+  }
+
+  .brand-badge {
+    display: none; /* Hide non-critical badge on smaller headers */
+  }
+
+  .hero {
+    margin: 1.25rem auto 2rem auto;
+    padding: 0 1rem;
+  }
+
+  .hero h1 {
+    font-size: 2.35rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .study-set-title {
+    font-size: 1.45rem;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+}
+
+/* Mobile Screens (<= 480px) */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.85rem 1rem;
+  }
+
+  .brand {
+    font-size: 1.1rem;
+    gap: 0.5rem;
+  }
+
+  .brand-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
+  }
+
+  .nav-actions {
+    gap: 0.4rem;
+  }
+
+  .history-nav-btn,
+  .clear-session-btn {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.78rem;
+  }
+
+  .theme-toggle {
+    padding: 0.35rem 0.55rem;
+    font-size: 1rem;
+  }
+
+  .hero-badge {
+    font-size: 0.78rem;
+    padding: 0.3rem 0.75rem;
+  }
+
+  .hero h1 {
+    font-size: 1.85rem;
+    line-height: 1.2;
+  }
+
+  .subtitle {
+    font-size: 0.92rem;
+  }
+
+  .study-tabs {
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .tab-btn {
+    width: 100%;
+    min-width: 0;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .trust-row {
+    font-size: 0.75rem;
+    gap: 0.4rem;
+  }
+
+  footer {
+    padding: 1.25rem 1rem;
+    font-size: 0.78rem;
+  }
 }

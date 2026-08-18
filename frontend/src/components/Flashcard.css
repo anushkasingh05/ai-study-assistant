@@ -367,3 +367,53 @@
   border-color: #3f3f46;
   color: #9ca3af;
 }
+
+/* ================= RESPONSIVE MEDIA QUERIES ================= */
+@media (max-width: 640px) {
+  .flashcard-3d-scene {
+    min-height: 280px;
+  }
+
+  .card-face {
+    padding: 1.25rem;
+  }
+
+  .card-question-text {
+    font-size: 1.1rem;
+  }
+
+  .card-answer-text {
+    font-size: 0.95rem;
+  }
+
+  .deck-nav-bar {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .nav-btn {
+    padding: 0.55rem 0.85rem;
+    font-size: 0.82rem;
+    flex: 1;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .center-actions {
+    width: 100%;
+    justify-content: center;
+    order: 3;
+    margin-top: 0.25rem;
+  }
+
+  .mastery-toggle-btn,
+  .flip-btn {
+    padding: 0.55rem 0.85rem;
+    font-size: 0.82rem;
+  }
+
+  .keyboard-shortcuts-guide {
+    display: none; /* Hide desktop shortcuts hint on touch/mobile devices */
+  }
+}
