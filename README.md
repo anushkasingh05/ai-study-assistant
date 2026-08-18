@@ -1,133 +1,624 @@
-# 🧠 StudyAI — Intelligent Educational Study Assistant
+# StudyAI — AI-Powered Study Assistant
 
-> **Frontend Internship Assignment Submission**  
-> An interactive educational web application that converts free-form notes and topics into structured, active-recall flashcard decks, interactive quizzes with wrong-answer re-testing, and concept checklists.
+StudyAI is a React-based educational assistant that converts a user's free-form study topic or question into structured, interactive flashcards using the Gemini API.
+
+The project was built as part of a Frontend Internship Assignment, with a strong focus on handling unpredictable AI responses, loading/error states, structured data validation, and a reliable user experience.
 
 ---
 
-## 🚀 Quickstart & Setup
+## 🚀 Features
 
-### Prerequisites
-- **Node.js**: v18.0 or higher
-- **NPM**: v9.0 or higher
-- **Gemini API Key**: Added to `backend/.env`
+### 🧠 AI-Powered Flashcard Generation
 
-### One-Command Setup & Run
-From the root project folder:
+* Enter any educational topic or question.
+* Supports both technical and non-technical subjects.
+* Examples:
+
+  * AWS
+  * Cloud Computing
+  * DevOps
+  * Kubernetes
+  * Programming
+  * Mathematics
+  * Physics
+  * Biology
+  * History
+  * Economics
+  * General educational questions
+* Gemini generates structured flashcard data instead of returning raw chatbot text.
+* Flashcards contain questions and concise answers.
+
+### 🔄 Interactive Flashcards
+
+* Flip between question and answer.
+* Navigate between multiple generated flashcards.
+* Supports keyboard interaction where implemented.
+* Designed for active-recall based learning.
+
+### 🎯 Learning Features
+
+* Track progress through the generated flashcards.
+* Review generated questions and answers.
+* Retry generation when an AI request fails.
+* Clear empty, loading, and error states.
+
+### 🌙 Dark Mode
+
+* Light and dark themes are available.
+* Theme state is handled on the frontend.
+
+### 💾 Local Session Persistence
+
+The application can use the browser's `localStorage` to preserve supported study-session information across page refreshes.
+
+> MongoDB is **not currently implemented** in this version of StudyAI. Persistent database-backed history can be added as a future enhancement.
+
+---
+
+# 🏗️ Architecture
+
+```text
+                    ┌──────────────────────┐
+                    │      React UI        │
+                    │  TypeScript + Vite   │
+                    └──────────┬───────────┘
+                               │
+                               │ POST /api/generate-flashcards
+                               ▼
+                    ┌──────────────────────┐
+                    │    Express Backend   │
+                    │      Node.js         │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │      Gemini API      │
+                    │    Google GenAI      │
+                    └──────────┬───────────┘
+                               │
+                               │ Structured JSON
+                               ▼
+                    ┌──────────────────────┐
+                    │   Zod Validation     │
+                    │  Validate AI Output  │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │      React UI        │
+                    │ Interactive Cards    │
+                    └──────────────────────┘
+```
+
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+
+* React
+* TypeScript
+* Vite
+* React Hooks
+* CSS
+
+## Backend
+
+* Node.js
+* Express.js
+* CORS
+* dotenv
+* Zod
+* `@google/genai`
+
+## AI
+
+* Google Gemini API
+* Gemini structured-output workflow
+
+## Storage
+
+* Browser `localStorage` for supported local session persistence
+* No external database is currently required
+
+---
+
+# 📁 Project Structure
+
+```text
+ai-study-assistant/
+│
+├── backend/
+│   ├── server.js
+│   ├── package.json
+│   ├── .env
+│   └── node_modules/
+│
+├── src/
+│   ├── components/
+│   │   ├── TopicInput.tsx
+│   │   └── Flashcard.tsx
+│   │
+│   ├── App.tsx
+│   ├── App.css
+│   ├── main.tsx
+│   └── ...
+│
+├── package.json
+├── vite.config.ts
+├── tsconfig.json
+└── README.md
+```
+
+> Do not commit `backend/.env` or expose the Gemini API key in the frontend.
+
+---
+
+# ⚙️ Prerequisites
+
+Make sure the following are installed:
+
+* Node.js v18 or higher
+* npm v9 or higher
+* A Gemini API key
+
+---
+
+# 🔑 Environment Setup
+
+Create a `.env` file inside the `backend` directory:
+
+```env
+GEMINI_API_KEY=your_gemini_api_key_here
+PORT=5000
+```
+
+The API key is used only by the backend.
+
+The frontend does **not** directly access the Gemini API.
+
+---
+
+# ▶️ Running the Project
+
+## 1. Install dependencies
+
+From the project root:
 
 ```bash
-# 1. Install all dependencies (backend + frontend)
-npm run install:all
+npm install
+```
 
-# 2. Start both backend and frontend development servers concurrently
+Then install backend dependencies:
+
+```bash
+cd backend
+npm install
+```
+
+Return to the project root:
+
+```bash
+cd ..
+```
+
+---
+
+## 2. Start the backend
+
+Open a terminal:
+
+```bash
+cd backend
+node server.js
+```
+
+You should see:
+
+```text
+StudyAI backend running on http://localhost:5000
+```
+
+---
+
+## 3. Start the frontend
+
+Open another terminal from the project root:
+
+```bash
 npm run dev
 ```
 
-### URLs
-- **Frontend Application**: [http://localhost:5175](http://localhost:5175) (or `5173`)
-- **Backend API**: [http://localhost:5000](http://localhost:5000)
+The Vite development server will provide the frontend URL, usually:
 
----
-
-## ✨ Features
-
-### 1. 🗂️ 3D Active-Recall Flashcards
-- **Interactive 3D Flip**: Click or press <kbd>Space</kbd> to seamlessly flip cards between Questions and Answers.
-- **Hints & Prompts**: Expandable contextual hints to prompt recall before revealing answers.
-- **Mastery Tracker**: Mark individual cards as *Mastered* vs *Need Review* with real-time deck progress.
-- **Keyboard Navigation**:
-  - <kbd>Space</kbd>: Flip card
-  - <kbd>←</kbd> / <kbd>→</kbd>: Previous / Next card
-- **Deck Shuffle**: Randomize card order for varied practice.
-
-### 2. 📝 Adaptive Quiz Mode & Re-test Wrong Answers
-- **Multiple-Choice Testing**: 4 options per question with immediate color-coded feedback.
-- **Explanations**: Clear educational rationale provided after every answer.
-- **Comprehensive Scorecard**: Real-time score calculation, percentage, and summary.
-- **🔄 Re-test Wrong Answers**: Dedicated flow that isolates only the questions the student answered incorrectly, allowing them to re-test until achieving 100% mastery.
-
-### 3. 📋 Key Takeaways & Concept Checklist
-- 1-2 sentence concept synthesis.
-- Interactive checklist to track key learning objectives.
-
-### 4. 💾 Local Persistence & Dark Mode
-- Automatically saves the active study session in `localStorage` so notes and progress are preserved on refresh.
-- Fluid Dark and Light theme toggle.
-
----
-
-## 🛡️ Robustness & Handling Bad AI Output (20% Weight)
-
-LLM outputs are inherently non-deterministic and can fail, return malformed syntax, or output wrong shapes. This project implements a multi-tier defense architecture:
-
-```
-[User Input]
-     │
-     ▼
-[Frontend: AbortController & Request Sequence ID] ──> (Prevents Race Conditions & Stale Overwrites)
-     │
-     ▼
-[Backend: Gemini Interactions API]
-     │
-     ▼
-[Layer 1: JSON Sanitizer & Markdown Fence Stripper] ──> (Strips ```json code blocks & extracts outermost braces)
-     │
-     ▼
-[Layer 2: Syntax Auto-Repair Engine] ──> (Removes illegal trailing commas & unescaped control chars)
-     │
-     ▼
-[Layer 3: Zod Schema Validation & Coercion] ──> (Ensures exact data types, fallback IDs, & array lengths)
-     │
-     ▼
-[Layer 4: Emergency Fallback Generator] ──> (Guarantees zero crashes even on extreme AI failure)
-     │
-     ▼
-[Frontend: Defensive UI & One-Click Retry State] ──> (Categorized error help & easy recovery)
+```text
+http://localhost:5173
 ```
 
-### Specific Failure Scenarios Handled:
-1. **Random / Gibberish Topics (e.g. `"asdfghjkl"`, `"xyz987"`):**
-   - The AI prompt contains explicit instructions for ambiguous inputs. Rather than throwing a 500 error or refusing, it synthesizes a helpful "Topic Clarification & Study Guide" deck.
-2. **Markdown Code Fences & Extra Commentary:**
-   - Raw output is sanitized via regex to remove ```` ```json ```` tags and locate exact JSON boundaries `{ ... }`.
-3. **Trailing Commas & Malformed LLM Syntax:**
-   - A secondary syntax repair engine cleans trailing commas before closing braces before JSON parsing.
-4. **Stale Responses & Race Conditions:**
-   - If a user sends a request and quickly submits a new one, `AbortController` terminates the pending fetch and a monotonic request sequence counter ignores older responses if they arrive out-of-order.
-5. **Rate Limits & API Errors (429, 502, 504):**
-   - The backend maps specific error codes (`RATE_LIMIT`, `SAFETY_BLOCKED`, `INPUT_TOO_LONG`) to user-friendly messages with an actionable **"🔄 Try Again"** button.
+The exact port may differ if another process is already using it.
 
 ---
 
-## 🏗️ Architecture & Tech Stack
+# 🔌 API
 
-- **Frontend**: React 19, TypeScript, Vite, CSS Modules / Custom Properties (No heavy UI libraries, zero bloat).
-- **Backend**: Node.js, Express, `@google/genai` (Gemini Interactions API), Zod, Dotenv.
-- **Security**: The Gemini API key is strictly stored server-side in `backend/.env` and never exposed to the client bundle.
+## Generate Flashcards
+
+### Endpoint
+
+```text
+POST /api/generate-flashcards
+```
+
+### Request
+
+```json
+{
+  "topic": "AWS EC2"
+}
+```
+
+### Response
+
+```json
+{
+  "flashcards": [
+    {
+      "question": "What is Amazon EC2?",
+      "answer": "Amazon EC2 is a service that provides resizable virtual servers in the AWS cloud."
+    }
+  ]
+}
+```
+
+The frontend parses the structured response and renders it as interactive flashcards.
 
 ---
 
-## 🤖 AI Usage Note
+# 🛡️ Handling Unpredictable AI Output
 
-In accordance with the assignment guidelines:
-- **AI Tools Used**: Google Gemini API for educational content generation (`gemini-3.6-flash`). Antigravity / AI assistant used for scaffolding TypeScript interfaces, refining CSS animations, and generating test fixtures.
-- **Code Understanding**: All state management, race-condition mitigation (`AbortController`), Zod schema validators, and component lifecycle logic are fully understood and can be explained and live-coded during the technical interview.
+One of the main goals of this project is to avoid treating AI output as automatically reliable.
 
----
+The application includes multiple defensive checks.
 
-## ⚠️ Known Limitations & Future Roadmap
+## 1. Input Validation
 
-1. **Document / PDF Upload**: Currently accepts free-form pasted text up to 6,000 characters. Future version could include native PDF/DOCX parsing.
-2. **Spaced Repetition Scheduling**: Currently saves local sessions; could be extended with Anki-style SuperMemo SM-2 interval algorithms.
-3. **Audio Pronunciation**: Could integrate Web Speech API for auditory learning.
+The frontend checks whether the user entered a non-empty topic before making an API request.
 
 ---
 
-## ⏱️ Time Spent
+## 2. Backend Validation
 
-- **Architecture Planning & Backend Proxy**: ~1.5 hours
-- **Error Handling Pipeline & Zod Validation**: ~2 hours
-- **Interactive UI (Flashcard 3D flip, Quiz runner, Re-test flow)**: ~2.5 hours
-- **Keyboard Navigation, Dark Mode, & Polish**: ~1 hour
-- **Testing, Documentation, & README**: ~1 hour
-- **Total Time**: ~8 hours
+The backend checks the incoming request and rejects invalid or empty topics.
+
+---
+
+## 3. Structured AI Output
+
+The Gemini request instructs the model to return structured JSON instead of conversational text.
+
+The application expects:
+
+```json
+{
+  "flashcards": [
+    {
+      "question": "...",
+      "answer": "..."
+    }
+  ]
+}
+```
+
+---
+
+## 4. Zod Validation
+
+The backend uses Zod to validate the AI response before sending it to the frontend.
+
+This prevents unexpected AI output from being blindly rendered.
+
+The expected structure is:
+
+```text
+flashcards
+ ├── question: string
+ └── answer: string
+```
+
+---
+
+## 5. Frontend Defensive Validation
+
+The frontend checks:
+
+* Whether the API request succeeded
+* Whether `flashcards` exists
+* Whether it is an array
+* Whether the array contains data
+* Whether individual cards contain valid questions
+* Whether individual cards contain valid answers
+
+Invalid responses are rejected instead of being rendered.
+
+---
+
+## 6. Loading State
+
+While Gemini is generating the response, the application displays a loading state.
+
+This prevents users from repeatedly assuming the application has stopped responding.
+
+---
+
+## 7. Error State
+
+If generation fails, the UI displays an understandable error message instead of crashing.
+
+Possible causes include:
+
+* Network failure
+* Backend failure
+* Gemini API failure
+* Invalid AI response
+* Empty AI response
+* Invalid structured data
+
+---
+
+## 8. Retry
+
+When generation fails, the user can retry the previous request without manually entering the topic again.
+
+---
+
+## 9. Empty State
+
+When no flashcards have been generated, the application displays an empty state explaining what the user should do.
+
+---
+
+# 🧩 Why a Backend Is Used
+
+The Gemini API key must not be exposed in the browser.
+
+Therefore, the application follows this architecture:
+
+```text
+React Frontend
+      │
+      │ User topic
+      ▼
+Express Backend
+      │
+      │ API key stays here
+      ▼
+Gemini API
+      │
+      │ Structured response
+      ▼
+Express Backend
+      │
+      ▼
+React Frontend
+```
+
+This keeps the API key server-side rather than shipping it with the frontend bundle.
+
+---
+
+# 📱 Responsive UI
+
+The interface is designed to work across:
+
+* Desktop
+* Laptop
+* Tablet
+* Mobile
+
+The layout uses responsive CSS so the main learning experience remains usable on smaller screens.
+
+---
+
+# ♿ User Experience
+
+The application includes:
+
+* Clear loading feedback
+* Error messages
+* Retry functionality
+* Empty state
+* Interactive flashcards
+* Dark mode
+* Keyboard-friendly interactions where implemented
+* Clear visual hierarchy
+
+---
+
+# 🤖 AI Usage
+
+AI tools were used during development for:
+
+* Understanding Gemini API integration
+* Debugging API and frontend issues
+* Developing initial component structures
+* Improving error handling
+* Reviewing TypeScript logic
+* Refining UI and CSS
+* Testing different AI-response scenarios
+
+The final application architecture and implementation were reviewed and tested manually.
+
+The Gemini API is used to generate the educational flashcard content.
+
+---
+
+# ⚠️ Known Limitations
+
+### 1. AI Accuracy
+
+AI-generated educational content can occasionally contain incorrect or incomplete information.
+
+The application validates the structure of the response, but structural validation does not guarantee factual correctness.
+
+---
+
+### 2. No Database
+
+The current version does not use MongoDB or another external database.
+
+Supported local session information is stored in the browser where implemented.
+
+A future version could use MongoDB to provide:
+
+* Search history
+* Saved study sessions
+* User-specific flashcard decks
+* Cross-device persistence
+* Session management
+
+---
+
+### 3. No Authentication
+
+Authentication is not currently required because it was not necessary for the assignment.
+
+---
+
+### 4. API Availability
+
+The application depends on the availability and quota of the Gemini API.
+
+If the API is unavailable or the quota is exhausted, the application displays an error and provides a retry option.
+
+---
+
+### 5. Free-form Input
+
+The application accepts free-form educational input, but extremely long or ambiguous requests may produce less useful results.
+
+---
+
+# 🚀 Future Improvements
+
+Possible future enhancements include:
+
+1. MongoDB-based study history
+2. Saved flashcard decks
+3. User accounts
+4. Search history
+5. Quiz mode
+6. Re-test incorrect answers
+7. Spaced repetition
+8. PDF/DOCX upload
+9. Streaming AI responses
+10. AI-powered refinement of existing flashcards
+11. Progress analytics
+12. Export flashcards
+13. Voice-based learning
+14. Deployment to a cloud platform
+
+---
+
+# 🧪 Testing Scenarios
+
+The application should be tested with different types of input.
+
+### Technical
+
+```text
+What is AWS EC2?
+```
+
+### Programming
+
+```text
+Explain JavaScript closures.
+```
+
+### Science
+
+```text
+Explain photosynthesis.
+```
+
+### Mathematics
+
+```text
+Explain Newton's laws of motion.
+```
+
+### General Education
+
+```text
+What caused the Industrial Revolution?
+```
+
+### Ambiguous Input
+
+```text
+asdfghjkl
+```
+
+The application should handle unusual input without crashing.
+
+### Empty Input
+
+```text
+```
+
+The application should display an appropriate validation message.
+
+---
+
+# 📊 Assignment Requirements Mapping
+
+| Assignment Requirement  | Implementation                                      |
+| ----------------------- | --------------------------------------------------- |
+| React                   | React + TypeScript                                  |
+| React Hooks             | `useState`, `useRef` and other hooks where required |
+| Free-form text input    | Topic/question input                                |
+| Real LLM API            | Google Gemini API                                   |
+| Backend API             | Express + Node.js                                   |
+| Structured AI output    | JSON flashcard structure                            |
+| Parse AI output         | JSON parsing                                        |
+| Handle malformed output | Defensive validation and error handling             |
+| Handle wrong shape      | Zod + frontend validation                           |
+| Loading state           | Implemented                                         |
+| Error state             | Implemented                                         |
+| Empty state             | Implemented                                         |
+| Retry                   | Implemented                                         |
+| Mobile support          | Responsive CSS                                      |
+| API key security        | API key stored server-side                          |
+| README                  | This document                                       |
+| AI usage note           | Included                                            |
+| Known limitations       | Included                                            |
+| Time spent              | See below                                           |
+
+---
+
+# ⏱️ Time Spent
+
+Approximate development time:
+
+* Architecture and backend setup: ~1.5 hours
+* Gemini API integration: ~1 hour
+* AI response validation and error handling: ~2 hours
+* Interactive frontend: ~2 hours
+* UI polish and responsive design: ~1 hour
+* Testing and documentation: ~0.5 hour
+
+**Total: approximately 8 hours**
+
+---
+
+# 👩‍💻 Author
+
+**Anushka Kumari**
+
+Frontend / AI Study Assistant Internship Assignment
+
+---
+
+# 📄 License
+
+This project was created as an internship assignment and is intended for educational and demonstration purposes.
